@@ -59,7 +59,7 @@
             <thead>
                 <tr>
                     <th class="text-center">Foto</th>
-                    {{-- <th class="text-center">Nik</th> --}}
+                    <th class="text-center">Nama</th>
                     <th width='100px' class="text-center">Tanggal Pengaduan</th>
                     <th class="text-center">Status</th>
                     <th width='150px' class="text-center">Aksi</th>
@@ -68,10 +68,10 @@
             <tbody>
                 @foreach($pengaduans as $pengaduan)
                 <tr>
-                    <td width='50px' class="text-center"><img src="{{ asset('public/uploads/'. $pengaduan->foto) }}"
-                            width="100px" alt="foto"></td>
-                    {{-- <td class="text-center">{{ $pengaduan->user_nik }}</td> --}}
-                    <td width='400px' class="text-center">{{ $pengaduan->created_at->format('l, d F Y H:i') }}</td>
+                    <td width='50px' class="text-center"><img src="{{ asset('/uploads/'. $pengaduan->foto) }}"
+                        width="100px" alt="foto"></td>
+                    <td class="text-center">{{ $pengaduan->users ? $pengaduan->users->name : '' }}</td>
+                    <td width='400px' class="text-center">{{ $pengaduan->created_at->format('l, d F Y H:i:s') }}</td>
                     <td class="text-center">
                         @if ($pengaduan->status == 'pending')
                         <span class="badge badge-sm bg-gradient-secondary">Pending</span>
@@ -87,7 +87,6 @@
                         @if (Auth::user()->role == 'admin')
                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                             action="{{ route('pengaduan.destroy', $pengaduan->id) }}" method="POST">
-
                             <a href="{{ route('pengaduan.show', $pengaduan->id) }}" class="btn btn-warning btn-sm"
                                 title="show"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
@@ -96,10 +95,8 @@
                                     <path
                                         d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
                                 </svg></a>
-
                             @csrf
                             @method('DELETE')
-
                             <button type="submit" class="btn btn-danger btn-sm" title="delete">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-trash" viewBox="0 0 16 16">
@@ -113,7 +110,6 @@
                         @elseif(Auth::user()->role == 'petugas')
                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                             action="{{ route('pengaduan.destroy', $pengaduan->id) }}" method="POST">
-
                             <a href="{{ route('pengaduan.show', $pengaduan->id) }}" class="btn btn-warning btn-sm"
                                 title="show"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
@@ -122,10 +118,8 @@
                                     <path
                                         d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
                                 </svg></a>
-
                             @csrf
                             @method('DELETE')
-
                             <button type="submit" class="btn btn-danger btn-sm" title="delete">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-trash" viewBox="0 0 16 16">
@@ -146,7 +140,6 @@
                                     d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
                             </svg></a>
                         @endif
-
                     </td>
                 </tr>
                 @endforeach

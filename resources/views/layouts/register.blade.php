@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Register</title>
+    <title>Registrasi</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center mb-5">
-                    <h2 class="heading-section">Register</h2>
+                    <h2 class="heading-section">Registrasi</h2>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -28,7 +28,7 @@
                         <div class="icon d-flex align-items-center justify-content-center">
                             <span class="fa fa-user-o"></span>
                         </div>
-                        <h3 class="text-center mb-4">Have an account?</h3>
+                        <h3 class="text-center mb-4">Sudah Punya Akun?</h3>
                         <form method="POST" action="{{ route('register.store') }}" class="login-form">
                             @csrf
                             @method('POST')
@@ -58,14 +58,14 @@
                                 <input type="number" name="phone" class="form-control rounded-left" placeholder="Telepon" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="alamat" class="form-control rounded-left" placeholder="Alamat" required>
+                                <textarea name="alamat" rows="8" placeholder="Alamat" class="form-control" required></textarea>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Register</button>
+                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Registrasi</button>
                             </div>
                             <div class="form-group d-md-flex">
                                 <div class="member">
-                                    Already a member? <a href="login">Login Now</a>
+                                    Sudah Punya Akun? <a href="login">Login Sekarang</a>
                                 </div>
                             </div>
                           </form>

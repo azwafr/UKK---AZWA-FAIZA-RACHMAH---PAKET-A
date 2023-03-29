@@ -42,7 +42,7 @@ class LaporanController extends Controller
         $start_date = @$request->start_date != null ? $request->start_date : date('l, d F Y - H:i:s');
         $end_date   = @$request->end_date != null ? $request->end_date : date('l, d F Y - H:i:s');
 
-        $pengaduan = Pengaduan::with('users')->get();
+        $pengaduan = Pengaduan::with('tanggapan', 'users')->get();
         // dd($pengaduan);
         if(!is_null($request->start_date) && !is_null($request->end_date)){
             $pengaduan =  Pengaduan::whereBetween('tgl_pengaduan', [Carbon::parse($request->start_date), Carbon::parse(date($request->end_date). ' 23:59:59')])->get();

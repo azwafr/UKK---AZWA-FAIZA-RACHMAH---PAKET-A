@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="{{ asset('assets/login/css/style.css') }}">
-
 </head>
 
 <body>
@@ -28,7 +27,7 @@
                         <div class="icon d-flex align-items-center justify-content-center">
                             <span class="fa fa-user-o"></span>
                         </div>
-                        <h3 class="text-center mb-4">Have an account?</h3>
+                        <h3 class="text-center mb-4">Punya Akun?</h3>
                         <form action="{{ route('login') }}" method="POST" class="login-form">
                             @csrf
                             @method('POST')
@@ -41,12 +40,11 @@
                             </div>
                             <div class="form-group d-md-flex">
                                 <div class="member">
-                                    Not a member? <a href="register">Register Now</a>
+                                    Tidak Punya Akun? <a href="register">Registrasi Sekarang</a>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary rounded submit p-3 px-5">Get
-                                    Started</button>
+                                <button type="submit" class="btn btn-primary rounded submit p-3 px-5">Mulai</button>
                             </div>
                         </form> 
                     </div>
@@ -80,5 +78,4 @@
       </script>
 
 </body>
-
 </html>

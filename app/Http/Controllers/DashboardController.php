@@ -17,6 +17,7 @@ class DashboardController extends Controller
     {
         return view('dashboard.index', [
             'pending' => Pengaduan::where('status', 'pending')->count(),
+            'proses' => Pengaduan::where('status', 'proses')->count(),
             'selesai' => Pengaduan::where('status', 'terverifikasi')->count(),
             'petugas' => User::where('role', '=', 'petugas')->count(),
             'masyarakat' => User::where('role', '=', 'masyarakat')->count(),

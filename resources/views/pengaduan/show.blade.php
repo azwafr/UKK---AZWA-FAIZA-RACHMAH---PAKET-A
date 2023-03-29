@@ -15,7 +15,7 @@
             class="text-gray-800 text-sm font-semibold px-4 py-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-400 ">
             <h4 class="mt-2">NIK : {{ $data->user_nik }}</h4>
             <h4 class="mt-2">Tanggal : {{ $data->created_at->format('l, d F Y - H:i:s') }}</h4>
-            <h4 class="mt-2">Foto : <img src="{{ asset('public/uploads/'. $pengaduan->foto) }}" alt="" width="100px"></h4>
+            <h4 class="mt-2">Foto : <img src="{{ asset('/uploads/'. $pengaduan->foto) }}" alt="" width="100px"></h4>
             <h4 class="mt-2">Status :
                 @if($data->status =='pending')
                 <span class="badge badge-sm bg-gradient-secondary"> {{ $data->status }}</span>
@@ -35,7 +35,7 @@
           <div class="px-4 py-3 mb-8 flex text-gray-800 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <div class="relative hidden mr-3  md:block dark:text-gray-400">
               <h2 class="text-center mb-8 font-semibold">Foto</h2>
-              <img class=" h-32 w-35 " src="{{ asset('public/uploads/'. $data->foto) }}" alt="foto" loading="lazy" />
+              <img class=" h-32 w-35 " src="{{ asset('/uploads/'. $data->foto) }}" alt="foto" loading="lazy" />
             </div>
             <div class="text-center flex-1 dark:text-gray-400">
               <h2 class="mb-8 font-semibold">Keterangan</h2>
@@ -53,6 +53,8 @@
 
                 @if (empty($tanggapan->tanggapan))
                 Belum ada tanggapan
+                @elseif ($data->status == 'terverifikasi')
+                Belum ada tanggapan
                 @elseif ($data->status == 'pending')
                 Belum ada tanggapan
                 @elseif($data->status == 'selesai')
@@ -63,16 +65,24 @@
           </div>
         </div>
         @if (Auth::user()->role == 'admin')
-        <div class="text-center my-2">
+        {{-- <div class="text-center my-2">
             <a href="{{ url('pengaduan/cetak', $pengaduan->id) }}"
               class="btn btn-danger">
               Export ke PDF
             </a>
-          </div>
+          </div> --}}
           <div class="text-center my-2">
             <a href="{{ route('tanggapan.update', $pengaduan->id) }}" class="btn btn-primary">Verifikasi</a>
           </div>
           @if ($data->status == 'terverifikasi')
+          <div class="text-center">
+            <a href="{{ route('tanggapan.show', $pengaduan->id) }}"
+              class="btn btn-primary">
+              Berikan Tanggapan
+            </a>
+          </div>
+          @endif
+          @if ($data->status == 'proses')
           <div class="text-center">
             <a href="{{ route('tanggapan.show', $pengaduan->id) }}"
               class="btn btn-primary">
@@ -81,15 +91,15 @@
           </div>
           @endif
         @elseif(Auth::user()->role == 'petugas')
-          <div class="text-center my-2">
+          {{-- <div class="text-center my-2">
             <a href="{{ url('pengaduan/cetak', $pengaduan->id) }}"
               class="btn btn-danger">
               Export ke PDF
             </a>
-          </div>
-          <div class="text-center">
-            <a href="{{ route('tanggapan.update', $pengaduan->id) }}" class="btn btn-primary">Verifikasi</a>
-          </div>
+          </div> --}}
+            <div class="text-center">
+              <a href="{{ route('tanggapan.update', $pengaduan->id) }}" class="btn btn-primary">Verifikasi</a>
+            </div>
           @if ($data->status == 'terverifikasi')
           <div class="text-center">
             <a href="{{ route('tanggapan.show', $pengaduan->id) }}"
@@ -97,7 +107,7 @@
               Berikan Tanggapan
             </a>
           </div>
-          @endif
+          @endif  
         @endif
 
       </div>

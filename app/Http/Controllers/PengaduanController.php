@@ -43,8 +43,8 @@ class PengaduanController extends Controller
             'foto'          => ['required'],
             'tgl_pengaduan' => ['required'],
             'isi_laporan'   => ['required']
-        ]); 
-        
+        ]);
+
         $name = Auth::user()->name;
         $nik = Auth::user()->nik;
         $id = Auth::user()->id;
@@ -55,8 +55,8 @@ class PengaduanController extends Controller
 
         if($image = $request->file('foto')){
             $destinationPath = 'public/uploads/';
-            $nameImage = date('l, d F Y - H:i:s') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $nameImage);
+            $nameImage = time() . "." . $request->foto->extension();
+            $request->foto->move(public_path('uploads'), $nameImage);
             $data['foto'] = "$nameImage";
         }
 
@@ -72,7 +72,8 @@ class PengaduanController extends Controller
      */
     public function show($id)
     {
-        $pengaduan = Pengaduan::with(['details', 'users'])->findOrFail($id);
+        $pengaduan = Pengaduan::with(['details', 'users', 'tanggapan'])->findOrFail($id);
+        // dd($pengaduan);
         $tanggapan = Tanggapan::where('pengaduan_id', $id)->first();
         // dd($tanggapan);
         // dd($pengaduan);
@@ -119,11 +120,11 @@ class PengaduanController extends Controller
         return redirect()->route('pengaduan.index')->with('success', 'Berhasil  Menghapus Pengaduan!');
     }
 
-    public function pdf($id)
-    {
-        $pengaduan = Pengaduan::with('users')->findOrFail($id);
+    // public function pdf($id)
+    // {
+    //     $pengaduan = Pengaduan::with('users')->findOrFail($id);
 
-        $pdf = PDF::loadview('pengaduan.cetak', compact('pengaduan'))->setPaper('a2');
-        return $pdf->download('laporan-pengaduan.pdf');
-    }
+    //     $pdf = PDF::loadview('pengaduan.cetak', compact('pengaduan'))->setPaper('a2');
+    //     return $pdf->download('laporan-pengaduan.pdf');
+    // }
 }

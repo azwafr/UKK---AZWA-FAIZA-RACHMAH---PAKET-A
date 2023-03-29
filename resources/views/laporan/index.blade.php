@@ -29,7 +29,7 @@
                 <tr>
                     <td width='50px' class="text-center">{{ $loop->iteration }}</td>
                     <td class="text-center">{{ $laporan->isi_laporan }}</td>
-                    <td class="text-center">{{ date('l, d F Y H:i', strtotime($laporan->tgl_pengaduan)) }}</td>
+                    <td width='400px' class="text-center">{{ $laporan->created_at->format('l, d F Y H:i:s') }}</td>
                     <td class="text-center">
                         @if ($laporan->status == 'pending')
                         <span class="badge badge-sm bg-gradient-secondary">Pending</span>
@@ -37,6 +37,8 @@
                         <span class="badge badge-sm bg-gradient-primary">Proses</span>
                         @elseif($laporan->status == 'selesai')
                         <span class="badge badge-sm bg-gradient-success">Selesai</span>
+                        @elseif($laporan->status == 'terverifikasi')
+                        <span class="badge badge-sm bg-gradient-success">Terverifikasi</span>
                         @endif  
                     </td>
                 </tr>   
